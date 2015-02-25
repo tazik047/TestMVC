@@ -1,0 +1,49 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    width: 800px;
+    margin: auto;
+    height: 100%;
+}
+
+#left {
+    float: left;
+    width: 20%;
+}
+#right {
+    float: left;
+    width: 80%;
+}
+#bigLeft {
+    float: left;
+    width: 80%;
+}
+#smallRight {
+    float: left;
+    width: 20%;
+}
+header {
+    height: 70px;
+}
+footer {
+    position: relative;
+	margin: -40px auto 0;
+	height: 40px;
+	border-top: 1px solid #2300ab;
+	background-color: #FEF3EE !important;
+
+}
+
+.clearfix {
+    clear: both;
+}
+#wrapper {
+	width: 900px;
+	margin: 0 auto;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+    padding-bottom: 40px;
+}

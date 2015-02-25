@@ -1,0 +1,32 @@
+﻿@using System.Web.UI.WebControls.WebParts
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <div id="bigLeft">
+                    <p>Тут будет header</p>
+                </div>
+                <div id="smallRight">@Html.Partial("PartialLogin")</div>
+
+            </header>
+            <div id="left">
+                Menu
+            </div>
+            <div id="right">
+                @RenderBody()
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <footer>
+            <p style="text-align: center; width:100%">Kostya and Stas &copy;</p>
+        </footer>
+    </body>
+</html>
