@@ -6,7 +6,10 @@
 }
 else
 {
-    using (Html.BeginForm("Login", "Auth"))
+    using (Ajax.BeginForm("Login", "Auth", new AjaxOptions()
+    {
+        HttpMethod = "POST"
+    }))
     {
         <div>
             Логин:

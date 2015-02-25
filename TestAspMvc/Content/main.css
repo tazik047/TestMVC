@@ -29,7 +29,7 @@ header {
 }
 footer {
     position: relative;
-	margin: -40px auto 0;
+	margin: -41px auto 0;
 	height: 40px;
 	border-top: 1px solid #2300ab;
 	background-color: #FEF3EE !important;
@@ -40,10 +40,13 @@ footer {
     clear: both;
 }
 #wrapper {
-	width: 900px;
+	width: 800px;
 	margin: 0 auto;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-    padding-bottom: 40px;
+}
+
+.content {
+    padding-bottom: 41px;
 }
