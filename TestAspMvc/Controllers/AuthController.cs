@@ -16,7 +16,7 @@ namespace TestAspMvc.Controllers
         public ActionResult Index()
         {
             var login = Session["user"] as User;
-            return PartialView("PartialLogin", login);
+            return View("Index", login);
         }
 
         public ActionResult Login(User user)
@@ -24,7 +24,7 @@ namespace TestAspMvc.Controllers
             if ((Session["user"] as User)== null)
             {
                 Session["user"] = user;
-                return PartialView("PartialLogin", user);
+                return View("Index", user);
             }
             return RedirectToAction("Index");
         }

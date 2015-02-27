@@ -1,5 +1,7 @@
 ﻿@model TestAspMvc.Models.User
 @using System.Web.UI.WebControls
+
+<div class="post">
 @if (Model != null)
 {
     <p>Здравствуй, @Model.Login!</p>
@@ -23,7 +25,8 @@ else
         <div>
             @Html.PasswordFor(model => model.Password, new {placeholder = "Password"})
         </div>
-        <input type="submit" value="Войти" />
+        <input type="submit" value="Войти" class="comments"/>
     }
 }
+</div>
 

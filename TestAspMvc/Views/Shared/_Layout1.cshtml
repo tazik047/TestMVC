@@ -1,35 +1,54 @@
 ﻿@using System.Web.UI.WebControls.WebParts
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <title>@ViewBag.Title</title>
 </head>
-    <body>
-        <div id="wrapper">
-            <div class="content">
-            <header>
-                <div id="bigLeft">
-                    <p>Тут будет header</p>
+<body>
+    <div id="wrapper">
+        <div id="header-wrapper">
+            <div id="header" class="container">
+                <div id="logo">
+                    <h1><a href="#">@ViewBag.Title</a></h1>
                 </div>
-                <div id="smallRight">@Html.Partial("PartialLogin")</div>
-
-            </header>
-            <div id="left">
-                Menu
+                <div id="menu">
+                    <ul>
+                        <li class="current_page_item">@Html.ActionLink("Главная", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Войти", "Index", "Auth")</li>
+                        <li><a href="#">Photos</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="right">
+            <div id="banner">
+                <div class="content"><img src="/images/img02.jpg" width="1000" height="300" alt="" /></div>
+            </div>
+        </div>
+        <!-- end #header -->
+
+        <div id="page">
+            <div id="content">
                 @RenderBody()
+                <div style="clear: both;">&nbsp;</div>
             </div>
-
-            <div class="clearfix"></div>
+            <!-- end #content -->
+            <div id="sidebar">
+                @{
+                    Html.RenderPartial("_Sidebar");
+                }
+            </div>
+            <!-- end #sidebar -->
+            <div style="clear: both;">&nbsp;</div>
         </div>
-        </div>
-        <footer>
-            <p style="text-align: center; width:100%">Kostya and Stas &copy;</p>
-        </footer>
-    </body>
+        <!-- end #page -->
+    </div>
+    <div id="footer">
+        <p>Kostya and Stas &copy;</p>
+    </div>
+    <!-- end #footer -->
+</body>
 </html>
