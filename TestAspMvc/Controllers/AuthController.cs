@@ -21,6 +21,8 @@ namespace TestAspMvc.Controllers
 
         public ActionResult Login(User user)
         {
+            if (!ModelState.IsValid)
+                return View("Index");
             if ((Session["user"] as User)== null)
             {
                 Session["user"] = user;

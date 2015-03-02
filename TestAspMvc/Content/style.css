@@ -536,3 +536,7 @@ a:hover {
 .list-style1 a {
 	color: #7F7F7F;
 }
+
+div.validation-summary-errors {
+    color: red;
+}

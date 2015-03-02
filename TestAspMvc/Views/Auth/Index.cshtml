@@ -5,31 +5,30 @@
 }
 
 <div class="post">
-@if (Model != null)
-{
-    <p>Здравствуй, @Model.Login!</p>
-}
-else
-{
-    using (Ajax.BeginForm("Login", "Auth", new AjaxOptions()
+    @if (Model != null)
     {
-        HttpMethod = "POST"
-    }))
-    {
-        <div>
-            Логин:
-        </div>
-        <div>
-            @Html.TextBoxFor(model => model.Login, "", new {placeholder = "Login"})
-        </div>
-        <div>
-            Пароль:
-        </div>
-        <div>
-            @Html.PasswordFor(model => model.Password, new {placeholder = "Password"})
-        </div>
-        <input type="submit" value="Войти" class="comments"/>
+        <p>Здравствуй, @Model.Login!</p>
     }
-}
+    else
+    {
+        using (Ajax.BeginForm("Login", "Auth", new AjaxOptions()
+        {
+            HttpMethod = "POST"
+        }))
+        {
+            @Html.ValidationSummary()
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Login)</td>
+                    <td>@Html.TextBoxFor(model => model.Login, "", new { placeholder = Html.DisplayNameFor(model=>model.Login) })</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Password)</td>
+                    <td>@Html.PasswordFor(model => model.Password, new { placeholder = Html.DisplayNameFor(model => model.Password) })</td>
+</tr>
+            </table>
+            <input type="submit" value="Войти" class="comments" />
+        }
+    }
 </div>
-
