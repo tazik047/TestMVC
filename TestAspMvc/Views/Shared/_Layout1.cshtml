@@ -16,11 +16,33 @@
                 </div>
                 <div id="menu">
                     <ul>
-                        <li class="current_page_item">@Html.ActionLink("Главная", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Войти", "Index", "Auth")</li>
-                        <li><a href="#">Photos</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li @if ("Главная".Equals(@ViewBag.Title))
+                            {
+                                @:class="current_page_item"
+                            }
+                            >@Html.ActionLink("Главная", "Index", "Home")</li>
+                        <li @if ("Вход".Equals(@ViewBag.Title)) 
+                            {
+                                 @: class="current_page_item"
+                            }
+                            >@Html.ActionLink("Войти", "Index", "Auth")</li>
+
+                        <li @if ("Photos".Equals(@ViewBag.Title)) 
+                            { 
+                                @: class="current_page_item"
+                            }
+                            ><a href="#">Photos</a></li>
+
+                        <li @if ("About".Equals(@ViewBag.Title))
+                            { 
+                                @: class="current_page_item"
+                            }><a href="#">About</a></li>
+
+                        <li @if ("Contact".Equals(@ViewBag.Title)) 
+                            { 
+                                @: class="current_page_item"
+                            }><a href="#">Contact</a></li>
+
                     </ul>
                 </div>
             </div>
