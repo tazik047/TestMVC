@@ -39,10 +39,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -113,16 +121,70 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Group.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LabRoom.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OldUser.cs" />
+    <Compile Include="Models\Queue.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueueGroup.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueueModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueueModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QueueModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QueueModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Student.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>QueueModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\QueueSystem.mdf" />
+    <Content Include="App_Data\QueueSystem_log.ldf">
+      <DependentUpon>QueueSystem.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\main.css" />
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="Models\QueueModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QueueModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\QueueModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QueueModel.edmx</DependentUpon>
+      <LastGenOutput>QueueModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\QueueModel.edmx.diagram">
+      <DependentUpon>QueueModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\QueueModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QueueModel.edmx</DependentUpon>
+      <LastGenOutput>QueueModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="images\img01.jpg" />
     <Content Include="images\img02.jpg" />
@@ -156,7 +218,7 @@
     <Content Include="Views\Shared\_Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

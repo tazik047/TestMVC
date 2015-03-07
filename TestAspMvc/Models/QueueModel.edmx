@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище QueueSystemModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Steward" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LabRooms">
+          <Key>
+            <PropertyRef Name="LabRoomId" />
+          </Key>
+          <Property Name="LabRoomId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Task" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaxPeopleInGroup" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QueueGroups">
+          <Key>
+            <PropertyRef Name="QueueGroupId" />
+          </Key>
+          <Property Name="QueueGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="bigint" Nullable="false" />
+          <Property Name="QueueId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Queues">
+          <Key>
+            <PropertyRef Name="QueueId" />
+          </Key>
+          <Property Name="QueueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LabRoomId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="bigint" Nullable="false" />
+          <Property Name="GroupId" Type="bigint" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_QueueGroups_ToQueues">
+          <End Role="Queues" Type="Self.Queues" Multiplicity="1" />
+          <End Role="QueueGroups" Type="Self.QueueGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Queues">
+              <PropertyRef Name="QueueId" />
+            </Principal>
+            <Dependent Role="QueueGroups">
+              <PropertyRef Name="QueueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QueueGroups_ToStudents">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="QueueGroups" Type="Self.QueueGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="QueueGroups">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Queues_ToLabRooms">
+          <End Role="LabRooms" Type="Self.LabRooms" Multiplicity="1" />
+          <End Role="Queues" Type="Self.Queues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabRooms">
+              <PropertyRef Name="LabRoomId" />
+            </Principal>
+            <Dependent Role="Queues">
+              <PropertyRef Name="LabRoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_ToGroups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_ToUsers">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище QueueSystemModelContainer">
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LabRooms" EntityType="Self.LabRooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QueueGroups" EntityType="Self.QueueGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Queues" EntityType="Self.Queues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_QueueGroups_ToQueues" Association="Self.FK_QueueGroups_ToQueues">
+            <End Role="Queues" EntitySet="Queues" />
+            <End Role="QueueGroups" EntitySet="QueueGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QueueGroups_ToStudents" Association="Self.FK_QueueGroups_ToStudents">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="QueueGroups" EntitySet="QueueGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Queues_ToLabRooms" Association="Self.FK_Queues_ToLabRooms">
+            <End Role="LabRooms" EntitySet="LabRooms" />
+            <End Role="Queues" EntitySet="Queues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_ToGroups" Association="Self.FK_Students_ToGroups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_ToUsers" Association="Self.FK_Students_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QueueSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Steward" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_ToGroups" FromRole="Groups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="LabRoom">
+          <Key>
+            <PropertyRef Name="LabRoomId" />
+          </Key>
+          <Property Name="LabRoomId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Task" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxPeopleInGroup" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Queues" Relationship="Self.FK_Queues_ToLabRooms" FromRole="LabRooms" ToRole="Queues" />
+        </EntityType>
+        <EntityType Name="QueueGroup">
+          <Key>
+            <PropertyRef Name="QueueGroupId" />
+          </Key>
+          <Property Name="QueueGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int64" Nullable="false" />
+          <Property Name="QueueId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Queue" Relationship="Self.FK_QueueGroups_ToQueues" FromRole="QueueGroups" ToRole="Queues" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_QueueGroups_ToStudents" FromRole="QueueGroups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Queue">
+          <Key>
+            <PropertyRef Name="QueueId" />
+          </Key>
+          <Property Name="QueueId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LabRoomId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="LabRoom" Relationship="Self.FK_Queues_ToLabRooms" FromRole="Queues" ToRole="LabRooms" />
+          <NavigationProperty Name="QueueGroups" Relationship="Self.FK_QueueGroups_ToQueues" FromRole="Queues" ToRole="QueueGroups" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int64" Nullable="false" />
+          <Property Name="GroupId" Type="Int64" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Group" Relationship="Self.FK_Students_ToGroups" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="QueueGroups" Relationship="Self.FK_QueueGroups_ToStudents" FromRole="Students" ToRole="QueueGroups" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Students_ToUsers" FromRole="Students" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Students_ToUsers" FromRole="Users" ToRole="Students" />
+        </EntityType>
+        <Association Name="FK_Students_ToGroups">
+          <End Role="Groups" Type="Self.Group" Multiplicity="1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Queues_ToLabRooms">
+          <End Role="LabRooms" Type="Self.LabRoom" Multiplicity="1" />
+          <End Role="Queues" Type="Self.Queue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabRooms">
+              <PropertyRef Name="LabRoomId" />
+            </Principal>
+            <Dependent Role="Queues">
+              <PropertyRef Name="LabRoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QueueGroups_ToQueues">
+          <End Role="Queues" Type="Self.Queue" Multiplicity="1" />
+          <End Role="QueueGroups" Type="Self.QueueGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Queues">
+              <PropertyRef Name="QueueId" />
+            </Principal>
+            <Dependent Role="QueueGroups">
+              <PropertyRef Name="QueueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QueueGroups_ToStudents">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="QueueGroups" Type="Self.QueueGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="QueueGroups">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_ToUsers">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QueueSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Groups" EntityType="Self.Group" />
+          <EntitySet Name="LabRooms" EntityType="Self.LabRoom" />
+          <EntitySet Name="QueueGroups" EntityType="Self.QueueGroup" />
+          <EntitySet Name="Queues" EntityType="Self.Queue" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Students_ToGroups" Association="Self.FK_Students_ToGroups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Queues_ToLabRooms" Association="Self.FK_Queues_ToLabRooms">
+            <End Role="LabRooms" EntitySet="LabRooms" />
+            <End Role="Queues" EntitySet="Queues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QueueGroups_ToQueues" Association="Self.FK_QueueGroups_ToQueues">
+            <End Role="Queues" EntitySet="Queues" />
+            <End Role="QueueGroups" EntitySet="QueueGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QueueGroups_ToStudents" Association="Self.FK_QueueGroups_ToStudents">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="QueueGroups" EntitySet="QueueGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_ToUsers" Association="Self.FK_Students_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище QueueSystemModelContainer" CdmEntityContainer="QueueSystemEntities">
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="QueueSystemModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Steward" ColumnName="Steward" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabRooms">
+            <EntityTypeMapping TypeName="QueueSystemModel.LabRoom">
+              <MappingFragment StoreEntitySet="LabRooms">
+                <ScalarProperty Name="LabRoomId" ColumnName="LabRoomId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="MaxPeopleInGroup" ColumnName="MaxPeopleInGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QueueGroups">
+            <EntityTypeMapping TypeName="QueueSystemModel.QueueGroup">
+              <MappingFragment StoreEntitySet="QueueGroups">
+                <ScalarProperty Name="QueueGroupId" ColumnName="QueueGroupId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="QueueId" ColumnName="QueueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Queues">
+            <EntityTypeMapping TypeName="QueueSystemModel.Queue">
+              <MappingFragment StoreEntitySet="Queues">
+                <ScalarProperty Name="QueueId" ColumnName="QueueId" />
+                <ScalarProperty Name="LabRoomId" ColumnName="LabRoomId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="QueueSystemModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="QueueSystemModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

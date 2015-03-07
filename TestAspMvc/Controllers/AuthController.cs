@@ -15,15 +15,15 @@ namespace TestAspMvc.Controllers
 
         public ActionResult Index()
         {
-            var login = Session["user"] as User;
+            var login = Session["user"] as OldUser;
             return View("Index", login);
         }
 
-        public ActionResult Login(User user)
+        public ActionResult Login(OldUser user)
         {
             if (!ModelState.IsValid)
                 return View("Index");
-            if ((Session["user"] as User)== null)
+            if ((Session["user"] as OldUser)== null)
             {
                 Session["user"] = user;
                 return View("Index", user);
